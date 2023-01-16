@@ -14,14 +14,18 @@
                     limit: 5
                 })" class="bg-white border-b border-gray-100">
                     <x-text-input id="query" x-model="query" class="w-full border-none block" name="query"
-                        placeholder="Search" type="search" autocomplete="off" />
+                        placeholder="Search" type="search" autocomplete="off" x-on:click.outside="reset()"
+                        x-on:keyup.escape="reset()" x-on:keyup.down="selectNextHit" x-on:keyup.up="selectPreviousHit"
+                        x-on:keyup.enter="goToUrl()" />
                     <template x-if="results">
                         <div class="py-2 px-3 border-b border-gray-200">
                             Found <span x-text="results.estimatedTotalHits"></span> results
-                            <template x-if="results" x-for="hit in results.hits">
-                                <a href="#" class="block py-2 px-3 border-b border-gray-200">
+                            <template x-if="results" x-for="(hit, index) in results.hits">
+                                <button x-on:click.prevent="goToUrl(hit)"
+                                    class="block w-full py-2 px-3 border-b border-gray-200"
+                                    :class="{ 'bg-gray-300 outline-none': index === selectedHitIndex }">
                                     <h1 x-text="hit.title"></h1>
-                                </a>
+                                </button>
                             </template>
                         </div>
                 </div>
