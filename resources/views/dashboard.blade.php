@@ -20,7 +20,7 @@
                     <template x-if="results">
                         <div class="py-2 px-3 border-b border-gray-200">
                             Found <span x-text="results.estimatedTotalHits"></span> results
-                            <template x-if="results" x-for="(hit, index) in results.hits">
+                            <template x-if="results.hits.length > 0" x-for="(hit, index) in results.hits">
                                 <button x-on:click.prevent="goToUrl(hit)"
                                     class="block w-full py-2 px-3 border-b border-gray-200"
                                     :class="{ 'bg-gray-300 outline-none': index === selectedHitIndex }">
@@ -31,4 +31,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            {{-- <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <search></search>
+            </div> --}}
+        </div>
+    </div>
 </x-app-layout>
